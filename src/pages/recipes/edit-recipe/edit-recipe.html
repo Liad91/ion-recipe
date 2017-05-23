@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ mode === 'new' ? 'Add New Recipe' : 'Edite Recipe' }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-list inset>
+
+        <ion-item>
+          <ion-label floating>Title</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Description</ion-label>
+          <ion-textarea formControlName="description"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Difficulty</ion-label>
+          <ion-select formControlName="difficulty">
+            <ion-option *ngFor="let option of selectOptions" [value]="option">{{ option }}</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Image URL</ion-label>
+          <ion-input type="text" formControlName="imgUrl"></ion-input>
+        </ion-item>
+
+        <!-- Prevent the previous ion-item to be :last-child -->
+        <ion-item style="display: none;"></ion-item>
+
+      </ion-list>
+
+      <ng-template [ngIf]="form.get('ingredients').controls.length > 0">
+        <ion-list inset formArrayName="ingredients">
+          <h6>Ingredients</h6>
+          <ion-row>
+            <ion-col col-7>Name</ion-col>
+            <ion-col col-3>Amount</ion-col>
+          </ion-row>
+          <div *ngFor="let ingredientCtrl of form.get('ingredients').controls; let i = index">
+            <div [formGroupName]="i">
+              <ion-row>
+                <ion-col col-7>
+                  <ion-item>
+                    <ion-input type="text" formControlName="name" [placeholder]="'Ingredient ' + (i + 1) "></ion-input>
+                  </ion-item>
+
+                  <!-- Prevent the previous ion-item to be :last-child -->
+                  <ion-item style="display: none;"></ion-item>
+                </ion-col>
+
+                <ion-col col-3>
+                  <ion-item>
+                    <ion-input type="number" formControlName="amount" placeholder="0"></ion-input>
+                  </ion-item>
+
+                  <!-- Prevent the previous ion-item to be :last-child -->
+                  <ion-item style="display: none;"></ion-item>
+                </ion-col>
+
+                <ion-col col-2 align-self-center text-center>
+                  <button type="button" ion-button color="danger" small clear round icon-only (click)="onRemoveIngredient(i)">
+                    <ion-icon name="close"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+        </ion-list>
+      </ng-template>
+
+      <ion-row>
+        <ion-col>
+          <button type="button" ion-button outline block (click)="onManageIngredients()">Manage Ingredients</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button type="submit" ion-button block [disabled]="form.invalid">{{ mode === 'new' ? 'Add Recipe' : 'Save Recipe' }}</button>
+        </ion-col>
+        <ion-col>
+        <button type="button" ion-button color="danger" block navPop>Cancel</button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

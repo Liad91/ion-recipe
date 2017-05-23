@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ recipe.title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-right>
+        <p class="author">Recipe By: {{ recipe.author }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4>
+        <img [src]="recipe.imgUrl ? recipe.imgUrl : 'assets/img/recipe.jpg'" [alt]="recipe.title">
+      </ion-col>
+      <ion-col >
+        <h4>{{ recipe.title }}</h4>
+        <p class="difficulty"><span class="badget">{{ recipe.difficulty }}</span></p>
+      </ion-col>
+    </ion-row>
+
+    <div class="description">
+
+      <ion-row>
+        <ion-col col-12>
+          <h5>Description</h5>
+        </ion-col>
+        <ion-col>
+          <p>{{ recipe.description }}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="ingredients-list">
+      <h5>Ingredients</h5>
+      <div>
+        <ion-row class="ingredient" *ngFor="let ingredient of recipe.ingredients; let i = index" (click)="onClick(ingredient, i)">
+          <ion-col>
+            {{ ingredient.name }} - ({{ ingredient.amount }})
+          </ion-col>
+        </ion-row>
+      </div>
+      <button ion-button block outline color="secondary" (click)="onAddIngredients()">
+        Add to Shopping List
+      </button>
+    </div>
+
+    <ion-row margin-top *ngIf="belongsToUser()">
+      <ion-col>
+        <button ion-button block (click)="onEditRecipe()">Edite Recipe</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="danger" block (click)="onDeleteRecipe()">Delete Recipe</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

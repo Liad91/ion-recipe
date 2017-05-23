@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Recipes</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onAddRecipe()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class="h-100">
+    <ion-row class="empty-list h-100" *ngIf="recipes.length < 1; else recipesList">
+      <ion-col>
+        <h3>Your recipe book is empty</h3>
+      </ion-col>
+    </ion-row>
+    <ng-template #recipesList>
+      <ion-list>
+        <ion-row *ngFor="let recipe of recipes; let i = index">
+          <ion-col>
+            <button ion-item (click)="onLoadRecipe(recipe, i)">
+              <ion-avatar item-left>
+                <img [src]="recipe.imgUrl ? recipe.imgUrl : 'assets/img/recipe.jpg'">
+              </ion-avatar>
+              <h2>{{ recipe.title }}</h2>
+              <p>{{ recipe.description }}</p>
+              <div class="recipe-info" item-right>
+                <ion-note>{{ recipe.difficulty }}</ion-note>
+                <ion-badge *ngIf="belongsToUser(recipe.userId)">My recipe</ion-badge>
+              </div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event); $event.enable(enableInfiniteScroll);">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-template>
+  </ion-grid>
+</ion-content>

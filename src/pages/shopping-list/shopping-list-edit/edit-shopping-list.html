@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ mode === 'new' ? 'Add New Ingredient' : 'Edit Ingredient' }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-list inset>
+
+        <ion-item>
+          <ion-label floating>Name</ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Amount</ion-label>
+          <ion-input type="number" formControlName="amount"></ion-input>
+        </ion-item>
+
+        <!-- Prevent the previous ion-item to be :last-child -->
+        <ion-item style="display: none;"></ion-item>
+
+      </ion-list>
+
+      <ion-row>
+        <ion-col>
+          <button type="submit" ion-button block [disabled]="form.invalid" [innerText]="mode === 'new' ? 'Add Item' : 'Save Item'"></button>
+        </ion-col>
+        <ion-col>
+          <button type="button" ion-button block color="danger" *ngIf="mode === 'new'" (click)="onReset()">Reset</button>
+          <button type="button" ion-button block color="danger" *ngIf="mode === 'edit'" navPop>Cancel</button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

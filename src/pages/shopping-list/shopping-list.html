@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Shopping List</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onAddIngredient()">
+        <ion-icon name='add'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+    <button ion-button icon-only (click)="onPopover($event)">
+      <ion-icon name='more'></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-grid class="h-100">
+    <ion-row class="empty-list h-100" *ngIf="ingredients.length < 1; else ingredientsList">
+      <ion-col>
+        <h3>Your shopping list is empty</h3>
+      </ion-col>
+    </ion-row>
+    <div class="ingredients-list" #ingredientsList>
+      <ion-row class="ingredient" *ngFor="let ingredient of ingredients; let i = index">
+        <ion-col>
+          <span class="index">{{i + 1}}.</span> {{ ingredient.name }} - ({{ ingredient.amount }})
+        </ion-col>
+        <ion-col class="actions">
+          <button ion-button color="primary" small clear round icon-only (click)="onEdit(ingredient, i)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger" small clear round icon-only (click)="onDelete(i)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ng-template #ingredientsList>
+    </ng-template>
+  </ion-grid>
+</ion-content>

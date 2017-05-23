@@ -1,0 +1,38 @@
+<ion-content class="content">
+  <ion-grid class="h-100" padding>
+    <ion-row class="h-100" align-items-center>
+      <div class="wrapper">
+        <h2>Wellcom</h2>
+        <p *ngIf="mode === 'signin'">Login and manage your recipe book!</p>
+        <p *ngIf="mode === 'signup'">Register and strat a new recipe book!</p>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <ion-list inset>
+            <ng-template [ngIf]="mode === 'signup'">
+              <ion-item>
+                <ion-input type="text" placeholder="First Name" clearInput formControlName="firstName"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="text" placeholder="Last Name" clearInput formControlName="lastName"></ion-input>
+              </ion-item>
+            </ng-template>
+
+            <ion-item>
+              <ion-input type="email" placeholder="Email" clearInput formControlName="email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password"  placeholder="Password" clearInput formControlName="password"></ion-input>
+            </ion-item>
+
+            <!-- Prevent the previous ion-item to be :last-child -->
+            <ion-item style="display: none;"></ion-item>
+          </ion-list>
+
+          <button type="submit" ion-button block [disabled]="form.invalid">{{ mode === 'signin' ? 'Login' : 'Register' }}</button>
+          <button type="button" ion-button block clear (click)="onSwitchMode()">{{ mode === 'signin' ? "Don't have an account yet?" : 'Already a member?' }}</button>
+        </form>
+      </div>
+    </ion-row>
+  </ion-grid>
+</ion-content>

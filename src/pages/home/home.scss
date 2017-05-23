@@ -1,0 +1,44 @@
+page-home {
+  .scroll-content {
+    padding: 0 !important;
+  }
+
+  .content {
+    background-color: color($colors, orange);
+    background-image: url('../assets/img/logo-s.jpg');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .wrapper {
+    padding: 6%;
+    background: rgba(255,255,255,.8);
+    width: 100%;
+    border-radius: 10px;
+    h2, p {
+      text-align: center;
+      color: #333;
+    }
+    p {
+      margin-top: 0;
+      font-size: 105%;
+    }
+  }
+
+  .item-md, .item-ios {
+    margin-top: 15px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .item-wp {
+    background-color: transparent;
+  }
+
+  .text-input-wp {
+    background-color: #fff;
+    margin: 0;
+    width: 100%;
+  }
+}

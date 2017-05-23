@@ -1,0 +1,16 @@
+page-recipes {
+  .recipe-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: stretch;
+    ion-note {
+      align-self: top;
+      font-size: 12px;
+    }
+    ion-badge {
+      font-weight: normal;
+      margin-top: 10px;
+    }
+  }
+}

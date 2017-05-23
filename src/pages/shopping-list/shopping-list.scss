@@ -1,0 +1,17 @@
+page-shopping-list {
+  ion-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .ingredients-list {
+    .index {
+      font-weight: 600;
+      margin-right: 5px;
+    }
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}
